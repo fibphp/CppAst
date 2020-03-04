@@ -6,7 +6,7 @@ namespace CppAst.Tests
 {
     public class InlineTestBase
     {
-        public void ParseAssert(string text, Action<CppCompilation> assertCompilation, CppParserOptions options = null)
+        public void ParseAssert(string text, Action<CppCompilation> assertCompilation, CppParserOptions options = null, bool asFile = true)
         {
             if (assertCompilation == null) throw new ArgumentNullException(nameof(assertCompilation));
 
@@ -24,10 +24,13 @@ namespace CppAst.Tests
 
             assertCompilation(compilation);
 
-            // Parse single file from disk
-            File.WriteAllText(headerFile, text);
-            compilation = CppParser.ParseFile(headerFile, options);
-            assertCompilation(compilation);
+            if (asFile)
+            {
+                // Parse single file from disk
+                File.WriteAllText(headerFile, text);
+                compilation = CppParser.ParseFile(headerFile, options);
+                assertCompilation(compilation);
+            }
         }
     }
 }
