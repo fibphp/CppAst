@@ -28,6 +28,8 @@ namespace CppAst
             };
             AutoSquashTypedef = true;
             ParseMacros = false;
+            ParseFunctionBodies = false;
+
             ParseComments = true;
             ParseSystemIncludes = true;
             ParseAttributes = false;
@@ -76,6 +78,11 @@ namespace CppAst
         public bool ParseMacros { get; set; }
 
         /// <summary>
+        /// Gets or sets a boolean indicating whether to parse FunctionBodies. Default is <c>false</c>.
+        /// </summary>
+        public bool ParseFunctionBodies { get; set; }
+
+        /// <summary>
         /// Gets or sets a boolean indicating whether un-named enum/struct referenced by a typedef will be renamed directly to the typedef name. Default is <c>true</c>
         /// </summary>
         public bool AutoSquashTypedef { get; set; }
@@ -99,6 +106,18 @@ namespace CppAst
             ParseMacros = true;
             return this;
         }
+
+        /// <summary>
+        /// Sets <see cref="ParseFunctionBodies"/> to <c>true</c> and return this instance.
+        /// </summary>
+        /// <returns>This instance</returns>
+        public CppParserOptions EnableFunctionBodies()
+        {
+            ParseFunctionBodies = true;
+            return this;
+        }
+
+        
 
         /// <summary>
         /// Cpu Clang target. Default is <see cref="CppTargetCpu.X86"/>

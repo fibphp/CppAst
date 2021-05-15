@@ -1096,6 +1096,7 @@ namespace CppAst
             cppFunction.CallingConvention = GetCallingConvention(cursor.Type);
 
             int i = 0;
+            List<string> defines = new List<string>();
             cursor.VisitChildren((argCursor, functionCursor, clientData) =>
             {
                 switch (argCursor.Kind)
@@ -1113,8 +1114,12 @@ namespace CppAst
                         parameter.InitExpression = paramExpr;
 
                         i++;
-                        break;
 
+                        defines.Add(argName);
+                        break;
+                    case CXCursorKind.CXCursor_CompoundStmt:
+                        cppFunction.FuncBody = VisitFunctionBody(argCursor, defines, cppFunction.Depends, clientData);
+                        break;
                     // Don't generate a warning for unsupported cursor
                     default:
                         //// Attributes should be parsed by ParseAttributes()
@@ -1130,6 +1135,30 @@ namespace CppAst
             }, data);
 
             return cppFunction;
+        }
+
+        private static string VisitFunctionBody(CXCursor compoundStmt, List<string> defines, List<string> depends, CXClientData data)
+        {
+            Debug.Assert(compoundStmt.Kind == CXCursorKind.CXCursor_CompoundStmt);
+
+            string ret = "";
+
+            compoundStmt.VisitChildren((stmtCursor, functionCursor, clientData) =>
+            {
+                switch (stmtCursor.Kind)
+                {
+                    case CXCursorKind.CXCursor_DeclStmt:
+
+                        break;
+                    default:
+                        break;
+                }
+
+                return CXChildVisitResult.CXChildVisit_Continue;
+
+            }, data);
+
+            return ret;
         }
 
         private static CppLinkageKind GetLinkage(CXLinkageKind link)
@@ -2045,7 +2074,7 @@ namespace CppAst
 
                 CXSourceLocation GetNextLocation(CXSourceLocation loc, int inc = 1)
                 {
-                    uint offset, u, z, d;
+                    uint offset, u, z;
                     CXFile f;
                     loc.GetSpellingLocation(out f, out u, out z, out offset);
                     if (inc >= 0)
@@ -2058,7 +2087,7 @@ namespace CppAst
 
                 CXSourceLocation GetCurrentLocation(CXSourceLocation loc, int inOffset)
                 {
-                    uint offset, u, z, d;
+                    uint offset, u, z;
                     CXFile f;
                     loc.GetSpellingLocation(out f, out u, out z, out offset);
                     return tu.GetLocationForOffset(f, (uint)inOffset);

@@ -22,6 +22,8 @@ namespace CppAst
             Parameters = new CppContainerList<CppParameter>(this);
             TemplateParameters = new List<CppTemplateParameterType>();
             Attributes = new CppContainerList<CppAttribute>(this);
+
+            Depends = new List<string>();
         }
 
         /// <inheritdoc />
@@ -72,6 +74,10 @@ namespace CppAst
 
         /// <inheritdoc />
         public List<CppTemplateParameterType> TemplateParameters { get; }
+
+        public List<string> Depends { get; }
+
+        public string FuncBody { get; set; }
 
         public override string ToString()
         {

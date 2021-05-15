@@ -8,11 +8,14 @@ namespace CppAst.Tests
         [Test]
         public void TestBodySimple()
         {
+            var opt = new CppParserOptions().EnableFunctionBodies();
+            opt.ParseSystemIncludes = false;
+
             ParseAssert(@"
 void function0();
 int function1(int a, float b);
 float function2(int);
-int function3(int args_a){
+int function3(int args_a, bool args_b){
     int local_b = 1234;
     float b = function2(args_a);
     local_b = function1(local_b, b);
@@ -65,7 +68,7 @@ int function3(int args_a){
                     {
                         var cppFunction = compilation.Functions[3];
                         Assert.AreEqual("function3", cppFunction.Name);
-                        Assert.AreEqual(1, cppFunction.Parameters.Count);
+                        Assert.AreEqual(2, cppFunction.Parameters.Count);
                         Assert.AreEqual("args_a", cppFunction.Parameters[0].Name);
                         Assert.AreEqual(CppTypeKind.Primitive, cppFunction.Parameters[0].Type.TypeKind);
                         Assert.AreEqual(CppPrimitiveKind.Int, ((CppPrimitiveType)cppFunction.Parameters[0].Type).Kind);
@@ -75,7 +78,7 @@ int function3(int args_a){
                         Assert.AreEqual(cppFunction, cppFunction1);
                     }
                 }
-            , null, false);
+            , opt, false);
         }
 
     }

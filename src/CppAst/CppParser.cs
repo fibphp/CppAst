@@ -106,7 +106,10 @@ namespace CppAst
             }
 
             var translationFlags = CXTranslationUnit_Flags.CXTranslationUnit_None;
-            translationFlags |= CXTranslationUnit_Flags.CXTranslationUnit_SkipFunctionBodies;                   // Don't traverse function bodies
+            if (!options.ParseFunctionBodies)
+            {
+                translationFlags |= CXTranslationUnit_Flags.CXTranslationUnit_SkipFunctionBodies;
+            }                  // Don't traverse function bodies
             translationFlags |= CXTranslationUnit_Flags.CXTranslationUnit_IncludeAttributedTypes;               // Include attributed types in CXType
             translationFlags |= CXTranslationUnit_Flags.CXTranslationUnit_VisitImplicitAttributes;              // Implicit attributes should be visited
 

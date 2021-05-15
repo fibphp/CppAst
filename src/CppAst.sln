@@ -15,6 +15,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{EDFB7701
 		..\readme.md = ..\readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CppDump", "CppDump\CppDump.csproj", "{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F3FAC147-1F2A-4234-998E-5A0C4971CAF2} = {F3FAC147-1F2A-4234-998E-5A0C4971CAF2}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +44,14 @@ Global
 		{03154921-B42B-49A4-95D3-D28738B82AC6}.Release|Any CPU.Build.0 = Release|Any CPU
 		{03154921-B42B-49A4-95D3-D28738B82AC6}.Release|x64.ActiveCfg = Release|x64
 		{03154921-B42B-49A4-95D3-D28738B82AC6}.Release|x64.Build.0 = Release|x64
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Debug|x64.Build.0 = Debug|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Release|x64.ActiveCfg = Release|Any CPU
+		{C729919B-E8FF-4F9A-BE87-3F4A37EC8146}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
